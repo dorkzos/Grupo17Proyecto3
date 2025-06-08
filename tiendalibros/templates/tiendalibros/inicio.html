@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicio</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <h1>Bienvenido, {{ user.username }}!</h1>
+        <p>Creado por Grupo 17</p>
+        <p>Materia: Programación Web 3</p>
+        <p>Docente: Lic. Marcelo Aruquipa</p>
+        <a href="{% url 'usuario_logout' %}">Cerrar sesión</a>
+    {% else %}
+        <h1>Bienvenido a la Biblioteca en Línea</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    {% endif %}
+</body>
+</html>
