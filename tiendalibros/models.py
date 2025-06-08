@@ -20,10 +20,12 @@ class Libro(models.Model):
 
 
 class Pedido(models.Model):
+    id = models.AutoField(primary_key=True)
     fecha = models.DateTimeField(auto_now_add=True)
+    cliente = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"Pedido #{self.id}"
+        return f"Pedido #{self.id} - {self.cliente}"
 
 
 class DetallePedido(models.Model):
