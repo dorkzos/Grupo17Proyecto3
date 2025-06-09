@@ -1,84 +1,22 @@
 #sofiii     ---------
-from django.shortcuts import render, redirect
-from .forms import LibroForm 
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import RegistroForm, LoginForm
-from .models import Libro, CarritoUser, CarritoActual, Resena
-from .forms import LibroForm
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .forms import LibroForm, ResenaForm
+from .models import Libro, Historial, CarritoUser, CarritoActual, Resena
 
 def agregar_libro(request):
-    from django.contrib import messages
     if request.method == 'POST':
         form = LibroForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Libro agregado correctamente.')
             return redirect('catalogo_libros')
-        else:
-            messages.error(request, 'Por favor, corrige los errores en el formulario.')
     else:
         form = LibroForm()
     return render(request, 'agregar_libro.html', {'form': form})
 #sofiii  fin   ---------
 # app/views.py
-
-
-def registro_view(request):
-    if request.method == 'POST':
-        form = RegistroForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('mi_cuenta')
-    else:
-        form = RegistroForm()
-    return render(request, 'app/registro.html', {'form': form})
-
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('mi_cuenta')
-    else:
-        form = LoginForm()
-    return render(request, 'registration/login.html', {'form': form})
-
-@login_required
-def mi_cuenta_view(request):
-    return render(request, 'app/mi_cuenta.html')
-
-@login_required
-def mis_pedidos_view(request):
-    return render(request, 'app/mis_pedidos.html')
-
-def logout_view(request):
-    logout(request)
-    return redirect('login')
-
-def catalogo_libros(request):
-    libros = Libro.objects.all()
-    return render(request, 'catalogo_libros.html', {'libros': libros})
-
-@login_required
-def agregar_al_carrito(request, libro_id):
-    libro = get_object_or_404(Libro, id=libro_id)
-    carrito_item, created = CarritoActual.objects.get_or_create(
-        usuario=request.user,
-        titulo=libro.titulo,
-        autor=libro.autor,
-        fecha_publicacion=libro.fecha_publicacion,
-        categoria=libro.categoria,
-        precio=libro.precio
-    )
-    if not created:
-        carrito_item.cantidad += 1
-        carrito_item.save()
-    return redirect('catalogo_libros')
 
 @login_required
 def ver_carrito(request):
@@ -102,7 +40,6 @@ def ver_carrito(request):
 
 @login_required
 def pagar(request):
-    from tiendalibros.models import Historial
     carrito_items = CarritoActual.objects.filter(usuario=request.user)
     for item in carrito_items:
         total = item.precio * item.cantidad
@@ -122,29 +59,20 @@ def pagar(request):
 
 @login_required
 def historial_compras(request):
-    from tiendalibros.models import Historial
     historial = Historial.objects.filter(usuario=request.user).order_by('-fecha')
     return render(request, 'historial_compras.html', {'historial': historial})
 
-
-from .models import Libro
-
 def catalogo_libros(request):
     autor_filtrado = request.GET.get('autor')
-    
     if autor_filtrado:
         libros = Libro.objects.filter(autor=autor_filtrado)
     else:
         libros = Libro.objects.all()
-
     autores = Libro.objects.values_list('autor', flat=True).distinct()
-
     return render(request, 'catalogo_libros.html', {
         'libros': libros,
         'autores': autores
     })
-
-from .forms import ResenaForm
 
 def agregar_resena(request, libro_id):
     libro = get_object_or_404(Libro, id=libro_id)
@@ -159,8 +87,55 @@ def agregar_resena(request, libro_id):
         form = ResenaForm()
     return render(request, 'agregar_resena.html', {'form': form, 'libro': libro})
 
-
 def ver_resenas(request, libro_id):
     libro = get_object_or_404(Libro, id=libro_id)
-    resenas = libro.resenas.all()
+    resenas = Resena.objects.filter(libro=libro)
     return render(request, 'ver_resenas.html', {'libro': libro, 'resenas': resenas})
+
+def inicio(request):
+    if request.user.is_authenticated:
+        return render(request, 'inicio_logueado.html', {'usuario': request.user})
+    else:
+        if request.method == 'POST':
+            form = AuthenticationForm(request, data=request.POST)
+            if form.is_valid():
+                username = request.POST.get('username')
+                password = request.POST.get('password')
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('inicio')
+        else:
+            form = AuthenticationForm()
+        return render(request, 'inicio.html', {'form': form})
+
+def registrarse(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('inicio')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registrarse.html', {'form': form})
+
+def usuario_logout(request):
+    logout(request)
+    return redirect('inicio')
+
+@login_required
+def agregar_al_carrito(request, libro_id):
+    libro = get_object_or_404(Libro, id=libro_id)
+    carrito_item, created = CarritoActual.objects.get_or_create(
+        usuario=request.user,
+        titulo=libro.titulo,
+        autor=libro.autor,
+        fecha_publicacion=libro.fecha_publicacion,
+        categoria=libro.categoria,
+        precio=libro.precio
+    )
+    if not created:
+        carrito_item.cantidad += 1
+        carrito_item.save()
+    return redirect('catalogo_libros')
