@@ -8,6 +8,7 @@ from .forms import RegistroForm, LoginForm
 from .models import Libro
 from .forms import LibroForm
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
 def agregar_libro(request):
     from django.contrib import messages
@@ -79,9 +80,14 @@ def ver_carrito(request):
     carrito = request.session.get('carrito', {})
     libros = Libro.objects.filter(pk__in=carrito.keys())
     carrito_items = []
+    total_general = 0
     for libro in libros:
         cantidad = carrito.get(str(libro.pk), 0)
         precio = libro.precio if libro.precio is not None else 0
         total = precio * cantidad
+        total_general += total
         carrito_items.append({'libro': libro, 'cantidad': cantidad, 'total': total})
-    return render(request, 'carrito.html', {'carrito_items': carrito_items})
+    return render(request, 'carrito.html', {'carrito_items': carrito_items, 'total_general': total_general})
+
+def pagar(request):
+    return render(request, 'pagar.html')

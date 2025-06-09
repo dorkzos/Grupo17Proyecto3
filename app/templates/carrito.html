@@ -13,7 +13,7 @@
             <th>Categoría</th>
             <th>Precio</th>
             <th>Cantidad</th>
-            <th>Total</th>
+            <th>SubTotal</th>
         </tr>
         {% if carrito_items %}
             {% for item in carrito_items %}
@@ -21,16 +21,23 @@
                 <td>{{ item.libro.titulo }}</td>
                 <td>{{ item.libro.autor }}</td>
                 <td>{{ item.libro.categoria }}</td>
-                <td>{{ item.libro.precio }}</td>
+                <td>${{ item.libro.precio }}</td>
                 <td>{{ item.cantidad }}</td>
-                <td>{{ item.total }}</td>
+                <td>${{ item.total }}</td>
             </tr>
             {% endfor %}
+            <!-- Fila para total general -->
+            <tr>
+                <td colspan="5" style="text-align: right; font-weight: bold;">Total a pagar:</td>
+                <td style="font-weight: bold;">${{ total_general }}</td>
+            </tr>
         {% else %}
             <tr><td colspan="6">El carrito está vacío.</td></tr>
         {% endif %}
     </table>
     <br>
     <a href="{% url 'catalogo_libros' %}" style="padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Volver al catálogo</a>
+    <a href="{% url 'pagar' %}" style="padding: 6px 16px; background: #ff0000; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Pagar</a>
 </body>
 </html>
+

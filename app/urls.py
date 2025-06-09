@@ -13,6 +13,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('mi-cuenta/', views.mi_cuenta_view, name='mi_cuenta'),
     path('mis-pedidos/', views.mis_pedidos_view, name='mis_pedidos'),
+    path('pagar/', views.pagar, name='pagar'),
 ]
 
 
