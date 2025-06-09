@@ -67,7 +67,6 @@ def catalogo_libros(request):
 @login_required
 def agregar_al_carrito(request, libro_id):
     libro = get_object_or_404(Libro, id=libro_id)
-    # Buscar si ya existe ese libro en el carrito actual del usuario
     carrito_item, created = CarritoActual.objects.get_or_create(
         usuario=request.user,
         titulo=libro.titulo,
@@ -126,3 +125,21 @@ def historial_compras(request):
     from tiendalibros.models import Historial
     historial = Historial.objects.filter(usuario=request.user).order_by('-fecha')
     return render(request, 'historial_compras.html', {'historial': historial})
+
+
+from .models import Libro
+
+def catalogo_libros(request):
+    autor_filtrado = request.GET.get('autor')
+    
+    if autor_filtrado:
+        libros = Libro.objects.filter(autor=autor_filtrado)
+    else:
+        libros = Libro.objects.all()
+
+    autores = Libro.objects.values_list('autor', flat=True).distinct()
+
+    return render(request, 'catalogo_libros.html', {
+        'libros': libros,
+        'autores': autores
+    })
