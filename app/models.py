@@ -35,3 +35,10 @@ class CarritoActual(models.Model):
 
     def __str__(self):
         return f"{self.usuario.username} - {self.titulo} x {self.cantidad}"
+
+class Resena(models.Model):
+    libro = models.ForeignKey(Libro, on_delete=models.CASCADE, related_name='resenas')
+    comentario = models.TextField()
+
+    def __str__(self):
+        return f"Reseña de {self.libro.titulo}: {self.comentario[:30]}..."

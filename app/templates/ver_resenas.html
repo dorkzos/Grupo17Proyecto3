@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reseñas de {{ libro.titulo }}</title>
+</head>
+<body>
+    <h1>Reseñas de {{ libro.titulo }}</h1>
+    {% if resenas %}
+        <ul>
+        {% for resena in resenas %}
+            <li>{{ resena.comentario }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay reseñas para este libro.</p>
+    {% endif %}
+    <a href="{% url 'catalogo_libros' %}" style="display:inline-block; margin-top:10px; padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Volver al Catálogo</a>
+</body>
+</html>

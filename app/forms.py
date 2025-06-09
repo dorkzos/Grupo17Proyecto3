@@ -1,5 +1,5 @@
 from django import forms
-from .models import Libro  
+from .models import Libro, Resena  
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
@@ -42,3 +42,11 @@ class RegistroForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+class ResenaForm(forms.ModelForm):
+    class Meta:
+        model = Resena
+        fields = ['comentario']
+        widgets = {
+            'comentario': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Escribe tu reseña aquí...'})
+        }

@@ -2,6 +2,7 @@
 # app/urls.py
 from django.urls import path
 from . import views
+from .views import agregar_resena, ver_resenas
 
 urlpatterns = [
     path('catalogo/', views.catalogo_libros, name='catalogo_libros'),
@@ -15,6 +16,8 @@ urlpatterns = [
     path('mis-pedidos/', views.mis_pedidos_view, name='mis_pedidos'),
     path('pagar/', views.pagar, name='pagar'),
     path('historial-compras/', views.historial_compras, name='historial_compras'),
+    path('libro/<int:libro_id>/agregar_resena/', agregar_resena, name='agregar_resena'),
+    path('libro/<int:libro_id>/ver_resenas/', ver_resenas, name='ver_resenas'),
 ]
 
 

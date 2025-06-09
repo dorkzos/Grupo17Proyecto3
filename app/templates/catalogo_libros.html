@@ -49,6 +49,8 @@
                     {% csrf_token %}
                     <button type="submit" style="padding: 4px 12px; background: #388e3c; color: white; border-radius: 5px; border: none; font-weight: bold;">Agregar al carrito</button>
                 </form>
+                <a href="{% url 'agregar_resena' libro.pk %}" style="padding: 4px 12px; background: #ff9800; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 4px; display: inline-block;">Agregar reseña</a>
+                <a href="{% url 'ver_resenas' libro.pk %}" style="padding: 4px 12px; background: #607d8b; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 4px; display: inline-block;">Ver reseñas</a>
             </td>
         </tr>
         {% empty %}

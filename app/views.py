@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistroForm, LoginForm
-from .models import Libro, CarritoUser, CarritoActual
+from .models import Libro, CarritoUser, CarritoActual, Resena
 from .forms import LibroForm
 from django.shortcuts import get_object_or_404
 
@@ -143,3 +143,24 @@ def catalogo_libros(request):
         'libros': libros,
         'autores': autores
     })
+
+from .forms import ResenaForm
+
+def agregar_resena(request, libro_id):
+    libro = get_object_or_404(Libro, id=libro_id)
+    if request.method == 'POST':
+        form = ResenaForm(request.POST)
+        if form.is_valid():
+            resena = form.save(commit=False)
+            resena.libro = libro
+            resena.save()
+            return redirect('catalogo_libros')
+    else:
+        form = ResenaForm()
+    return render(request, 'agregar_resena.html', {'form': form, 'libro': libro})
+
+
+def ver_resenas(request, libro_id):
+    libro = get_object_or_404(Libro, id=libro_id)
+    resenas = libro.resenas.all()
+    return render(request, 'ver_resenas.html', {'libro': libro, 'resenas': resenas})
