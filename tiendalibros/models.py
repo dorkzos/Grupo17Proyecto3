@@ -13,7 +13,7 @@ class Libro(models.Model):
     titulo = models.CharField(max_length=200)
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     categoria = models.CharField(max_length=100, blank=True, null=True)
-    precio = models.DecimalField(max_digits=6, decimal_places=2)
+    precio = models.IntegerField(default=0)
 
     def __str__(self):
         return self.titulo

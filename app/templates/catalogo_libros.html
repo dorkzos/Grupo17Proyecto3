@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Libros</title>
+</head>
+<body>
+    <h1>Catálogo de Libros</h1>
+    <a href="{% url 'agregar_libro' %}" style="padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Agregar Libro</a>
+    <a href="{% url 'ver_carrito' %}" style="padding: 6px 16px; background: #388e3c; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-left: 10px;">Ver Carrito</a>
+    <table border="1" cellpadding="5" style="margin-top: 20px;">
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Acción</th>
+        </tr>
+        {% for libro in libros %}
+        <tr>
+            <td>{{ libro.titulo }}</td>
+            <td>{{ libro.autor }}</td>
+            <td>{{ libro.categoria }}</td>
+            <td>{{ libro.precio }}</td>
+            <td>
+                <form method="post" action="{% url 'agregar_al_carrito' libro.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" style="padding: 4px 12px; background: #388e3c; color: white; border-radius: 5px; border: none; font-weight: bold;">Agregar al carrito</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No hay libros en el catálogo.</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

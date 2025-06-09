@@ -1,7 +1,36 @@
-# app/forms.py
 from django import forms
+from .models import Libro  
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+
+class LibroForm(forms.ModelForm):
+    CATEGORIAS = [
+        ('Ficción', 'Ficción'),
+        ('No Ficción', 'No Ficción'),
+        ('Ciencia', 'Ciencia'),
+        ('Historia', 'Historia'),
+        ('Infantil', 'Infantil'),
+        ('Educativo', 'Educativo'),
+        ('Otro', 'Otro'),
+    ]
+    categoria = forms.ChoiceField(choices=CATEGORIAS, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Libro
+        fields = ['titulo', 'autor', 'fecha_publicacion', 'categoria', 'precio']
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'autor': forms.TextInput(attrs={'class': 'form-control'}),
+            'fecha_publicacion': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'precio': forms.NumberInput(),
+        }
+
+    def clean_precio(self):
+        precio = self.cleaned_data.get('precio')
+        if precio is not None and int(precio) != precio:
+            raise forms.ValidationError('El precio debe ser un número entero.')
+        return precio
+
 
 class RegistroForm(UserCreationForm):
     email = forms.EmailField(required=True)
