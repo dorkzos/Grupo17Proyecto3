@@ -6,3 +6,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tiendalibros.urls')),
 ]
+#sofi --------
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('app.urls')),  # Asegúrate de incluir esto
+]

@@ -6,3 +6,5 @@ admin.site.register(Libro)
 admin.site.register(Pedido)
 admin.site.register(DetallePedido)
 admin.site.register(Historial)
+
+
