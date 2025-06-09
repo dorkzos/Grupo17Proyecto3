@@ -6,7 +6,10 @@
 </head>
 <body>
     <h1>Catálogo de Libros</h1>
+    <a href="{% url 'inicio' %}" style="padding: 6px 16px; background: #f44336; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-right: 10px;">Volver a inicio</a>
+    {% if user.is_authenticated and user.is_staff %}
     <a href="{% url 'agregar_libro' %}" style="padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Agregar Libro</a>
+    {% endif %}
     <a href="{% url 'ver_carrito' %}" style="padding: 6px 16px; background: #388e3c; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-left: 10px;">Ver Carrito</a>
     
                                                                 <!--  Filtro por autor -->
