@@ -2,42 +2,39 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Carrito de Compras</title>
+    <title>Historial de Compras</title>
 </head>
 <body>
-    <h1>Carrito de Compras</h1>
+    <h1>Historial de Compras</h1>
     <table border="1" cellpadding="5" style="margin-top: 20px;">
         <tr>
+            <th>Fecha</th>
             <th>Título</th>
             <th>Autor</th>
             <th>Categoría</th>
             <th>Precio</th>
             <th>Cantidad</th>
-            <th>SubTotal</th>
+            <th>Total</th>
+            <th>Acción</th>
         </tr>
-        {% if carrito_items %}
-            {% for item in carrito_items %}
+        {% if historial %}
+            {% for item in historial %}
             <tr>
+                <td>{{ item.fecha|date:'d/m/Y H:i' }}</td>
                 <td>{{ item.titulo }}</td>
                 <td>{{ item.autor }}</td>
                 <td>{{ item.categoria }}</td>
                 <td>${{ item.precio }}</td>
                 <td>{{ item.cantidad }}</td>
                 <td>${{ item.total }}</td>
+                <td>{{ item.accion }}</td>
             </tr>
             {% endfor %}
-            <!-- Fila para total general -->
-            <tr>
-                <td colspan="5" style="text-align: right; font-weight: bold;">Total a pagar:</td>
-                <td style="font-weight: bold;">${{ total_general }}</td>
-            </tr>
         {% else %}
-            <tr><td colspan="6">El carrito está vacío.</td></tr>
+            <tr><td colspan="8">No hay compras registradas.</td></tr>
         {% endif %}
     </table>
     <br>
     <a href="{% url 'catalogo_libros' %}" style="padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Volver al catálogo</a>
-    <a href="{% url 'pagar' %}" style="padding: 6px 16px; background: #ff0000; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Pagar</a>
 </body>
 </html>
-

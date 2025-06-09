@@ -5,10 +5,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistroForm, LoginForm
-from .models import Libro
+from .models import Libro, CarritoUser, CarritoActual
 from .forms import LibroForm
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 
 def agregar_libro(request):
     from django.contrib import messages
@@ -65,29 +64,65 @@ def catalogo_libros(request):
     libros = Libro.objects.all()
     return render(request, 'catalogo_libros.html', {'libros': libros})
 
+@login_required
 def agregar_al_carrito(request, libro_id):
     libro = get_object_or_404(Libro, id=libro_id)
-    carrito = request.session.get('carrito', {})
-    libro_id_str = str(libro_id)
-    if libro_id_str in carrito:
-        carrito[libro_id_str] += 1
-    else:
-        carrito[libro_id_str] = 1
-    request.session['carrito'] = carrito
+    # Buscar si ya existe ese libro en el carrito actual del usuario
+    carrito_item, created = CarritoActual.objects.get_or_create(
+        usuario=request.user,
+        titulo=libro.titulo,
+        autor=libro.autor,
+        fecha_publicacion=libro.fecha_publicacion,
+        categoria=libro.categoria,
+        precio=libro.precio
+    )
+    if not created:
+        carrito_item.cantidad += 1
+        carrito_item.save()
     return redirect('catalogo_libros')
 
+@login_required
 def ver_carrito(request):
-    carrito = request.session.get('carrito', {})
-    libros = Libro.objects.filter(pk__in=carrito.keys())
-    carrito_items = []
+    carrito_items = CarritoActual.objects.filter(usuario=request.user)
+    items = []
     total_general = 0
-    for libro in libros:
-        cantidad = carrito.get(str(libro.pk), 0)
-        precio = libro.precio if libro.precio is not None else 0
-        total = precio * cantidad
+    for item in carrito_items:
+        precio = item.precio if item.precio is not None else 0
+        total = precio * item.cantidad
+        items.append({
+            'titulo': item.titulo,
+            'autor': item.autor,
+            'categoria': item.categoria,
+            'precio': precio,
+            'cantidad': item.cantidad,
+            'total': total,
+            'fecha_publicacion': item.fecha_publicacion
+        })
         total_general += total
-        carrito_items.append({'libro': libro, 'cantidad': cantidad, 'total': total})
-    return render(request, 'carrito.html', {'carrito_items': carrito_items, 'total_general': total_general})
+    return render(request, 'carrito.html', {'carrito_items': items, 'total_general': total_general})
 
+@login_required
 def pagar(request):
+    from tiendalibros.models import Historial
+    carrito_items = CarritoActual.objects.filter(usuario=request.user)
+    for item in carrito_items:
+        total = item.precio * item.cantidad
+        Historial.objects.create(
+            usuario=request.user,
+            titulo=item.titulo,
+            autor=item.autor,
+            fecha_publicacion=item.fecha_publicacion,
+            categoria=item.categoria,
+            precio=item.precio,
+            cantidad=item.cantidad,
+            total=total,
+            accion='Compra'
+        )
+    carrito_items.delete()
     return render(request, 'pagar.html')
+
+@login_required
+def historial_compras(request):
+    from tiendalibros.models import Historial
+    historial = Historial.objects.filter(usuario=request.user).order_by('-fecha')
+    return render(request, 'historial_compras.html', {'historial': historial})

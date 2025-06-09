@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -38,10 +39,17 @@ class DetallePedido(models.Model):
 
 
 class Historial(models.Model):
-    libro = models.ForeignKey(Libro, on_delete=models.SET_NULL, null=True)
-    accion = models.CharField(max_length=100)
-    fecha = models.DateTimeField(auto_now_add=True)
+    usuario = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
+    titulo = models.CharField(max_length=100, null=True, blank=True)
+    autor = models.CharField(max_length=100, null=True, blank=True)
+    fecha_publicacion = models.DateField(null=True, blank=True)
+    categoria = models.CharField(max_length=100, blank=True, null=True)
+    precio = models.IntegerField(default=0, null=True, blank=True)
+    cantidad = models.PositiveIntegerField(default=1, null=True, blank=True)
+    total = models.IntegerField(default=0, null=True, blank=True)
+    accion = models.CharField(max_length=100, null=True, blank=True)
+    fecha = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.accion} - {self.libro}"
+        return f"{self.usuario.username if self.usuario else ''} - {self.titulo} x {self.cantidad} - {self.accion}"
 

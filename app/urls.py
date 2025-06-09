@@ -14,6 +14,7 @@ urlpatterns = [
     path('mi-cuenta/', views.mi_cuenta_view, name='mi_cuenta'),
     path('mis-pedidos/', views.mis_pedidos_view, name='mis_pedidos'),
     path('pagar/', views.pagar, name='pagar'),
+    path('historial-compras/', views.historial_compras, name='historial_compras'),
 ]
 
 
