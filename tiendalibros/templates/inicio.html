@@ -23,10 +23,11 @@
     {% if form.errors %}
         <p style="color: red;">Usuario o contraseña incorrectos. Intenta de nuevo.</p>
     {% endif %}
-    <form method="post">
+    <form method="post" style="display:inline-block;">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Entrar</button>
+        <button type="submit" style="display:inline-block; padding: 6px 16px; background: #388e3c; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; border: none;">Ingresar</button>
     </form>
+    <a href="{% url 'registrarse' %}" style="display:inline-block; margin-left:10px; padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Registrarse</a>
 </body>
 </html>
