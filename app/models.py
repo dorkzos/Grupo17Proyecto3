@@ -39,6 +39,7 @@ class CarritoActual(models.Model):
 class Resena(models.Model):
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE, related_name='resenas')
     comentario = models.TextField()
+    calificacion = models.IntegerField(choices=[(1, '1 - Muy mala'), (2, '2'), (3, '3'), (4, '4'), (5, '5 - Muy buena')], default=5)
 
     def __str__(self):
-        return f"Reseña de {self.libro.titulo}: {self.comentario[:30]}..."
+        return f"Reseña de {self.libro.titulo}: {self.comentario[:30]}... ({self.calificacion})"

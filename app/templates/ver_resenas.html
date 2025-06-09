@@ -9,7 +9,10 @@
     {% if resenas %}
         <ul>
         {% for resena in resenas %}
-            <li>{{ resena.comentario }}</li>
+            <li>
+                <strong>Calificación:</strong> {{ resena.calificacion }} / 5<br>
+                <strong>Comentario:</strong> {{ resena.comentario }}
+            </li>
         {% endfor %}
         </ul>
     {% else %}

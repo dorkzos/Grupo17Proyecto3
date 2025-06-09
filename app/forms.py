@@ -46,7 +46,8 @@ class LoginForm(AuthenticationForm):
 class ResenaForm(forms.ModelForm):
     class Meta:
         model = Resena
-        fields = ['comentario']
+        fields = ['comentario', 'calificacion']
         widgets = {
-            'comentario': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Escribe tu reseña aquí...'})
+            'comentario': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Escribe tu reseña aquí...'}),
+            'calificacion': forms.Select(choices=[(1, '1 - Muy mala'), (2, '2'), (3, '3'), (4, '4'), (5, '5 - Muy buena')]),
         }
