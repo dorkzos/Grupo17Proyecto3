@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import LibroForm, ResenaForm
 from .models import Libro, Historial, CarritoUser, CarritoActual, Resena
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponseForbidden
+from django.urls import reverse
 
 def agregar_libro(request):
     if request.method == 'POST':
@@ -139,3 +142,12 @@ def agregar_al_carrito(request, libro_id):
         carrito_item.cantidad += 1
         carrito_item.save()
     return redirect('catalogo_libros')
+
+def eliminar_libro(request, libro_id):
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("No tienes permisos para eliminar libros.")
+    libro = get_object_or_404(Libro, id=libro_id)
+    if request.method == 'POST':
+        libro.delete()
+        return redirect(reverse('catalogo_libros'))
+    return render(request, 'eliminar_libro_confirm.html', {'libro': libro})

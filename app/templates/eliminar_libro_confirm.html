@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-content" style="max-width: 500px; margin: 60px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px #b0c4de55; padding: 32px 24px; text-align: center;">
+    <h2 style="color:#e74c3c;">¿Estás seguro que deseas eliminar este libro?</h2>
+    <p><strong>{{ libro.titulo }}</strong> de <strong>{{ libro.autor }}</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-danger" style="padding:10px 28px; background:#e74c3c; color:white; border-radius:5px; font-weight:bold; font-size:1.1em; border:none; margin-right:10px;">Eliminar</button>
+        <a href="{% url 'catalogo_libros' %}" class="btn-volver">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

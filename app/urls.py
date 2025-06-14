@@ -1,6 +1,7 @@
 # app/urls.py
 from django.urls import path
 from . import views
+from .views import eliminar_libro
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -14,6 +15,7 @@ urlpatterns = [
     path('historial/', views.historial_compras, name='historial_compras'),
     path('libro/<int:libro_id>/agregar_resena/', views.agregar_resena, name='agregar_resena'),
     path('libro/<int:libro_id>/ver_resenas/', views.ver_resenas, name='ver_resenas'),
+    path('eliminar_libro/<int:libro_id>/', eliminar_libro, name='eliminar_libro'),
 ]
 
 

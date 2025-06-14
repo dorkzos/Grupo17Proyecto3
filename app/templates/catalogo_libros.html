@@ -72,6 +72,12 @@
                             </form>
                             <a href="{% url 'agregar_resena' libro.pk %}" class="btn-warning">Agregar reseña</a>
                             <a href="{% url 'ver_resenas' libro.pk %}" class="btn-info">Ver reseñas</a>
+                            {% if user.is_superuser %}
+                            <form method="post" action="{% url 'eliminar_libro' libro.pk %}" style="margin:0;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-danger" style="background:#e74c3c; color:white;">Eliminar</button>
+                            </form>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>

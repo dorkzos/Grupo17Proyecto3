@@ -264,6 +264,22 @@ body {
 .btn-success:hover, .btn-warning:hover, .btn-info:hover {
     opacity: 0.8;
 }
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: opacity 0.2s;
+}
+.btn-danger:hover {
+    opacity: 0.8;
+}
 .main-footer {
     background: #222;
     color: #fff;
