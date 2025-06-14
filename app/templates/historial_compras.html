@@ -1,40 +1,67 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Historial de Compras</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
 </head>
 <body>
-    <h1>Historial de Compras</h1>
-    <table border="1" cellpadding="5" style="margin-top: 20px;">
-        <tr>
-            <th>Fecha</th>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Categoría</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-            <th>Acción</th>
-        </tr>
-        {% if historial %}
-            {% for item in historial %}
-            <tr>
-                <td>{{ item.fecha|date:'d/m/Y H:i' }}</td>
-                <td>{{ item.titulo }}</td>
-                <td>{{ item.autor }}</td>
-                <td>{{ item.categoria }}</td>
-                <td>${{ item.precio }}</td>
-                <td>{{ item.cantidad }}</td>
-                <td>${{ item.total }}</td>
-                <td>{{ item.accion }}</td>
-            </tr>
-            {% endfor %}
-        {% else %}
-            <tr><td colspan="8">No hay compras registradas.</td></tr>
-        {% endif %}
-    </table>
-    <br>
-    <a href="{% url 'catalogo_libros' %}" style="padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Volver al catálogo</a>
+    <div class="layout-flex">
+        <header class="main-header">
+            <div class="header-content">
+                <img src="{% static 'img/libreriaicon.png' %}" alt="Logo" class="logo-header">
+                <div class="header-title">
+                    <span class="logo-text">Librerías <strong>LECTURA</strong></span>
+                    <span class="logo-sub">Desde 1997 ...</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="{% url 'inicio' %}">Inicio</a>
+                    <a href="#">Acerca de</a>
+                    <a href="{% url 'ver_carrito' %}">Carrito</a>
+                    <a href="#">Contacto</a>
+                </nav>
+                <div class="user-menu">
+                    <span>👤 Mi cuenta</span>
+                </div>
+            </div>
+        </header>
+        <main class="main-content">
+            <h1>Historial de Compras</h1>
+            <table border="1" cellpadding="5" style="margin-top: 20px;">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Acción</th>
+                </tr>
+                {% if historial %}
+                    {% for item in historial %}
+                    <tr>
+                        <td>{{ item.fecha|date:'d/m/Y H:i' }}</td>
+                        <td>{{ item.titulo }}</td>
+                        <td>{{ item.autor }}</td>
+                        <td>{{ item.categoria }}</td>
+                        <td>${{ item.precio }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>${{ item.total }}</td>
+                        <td>{{ item.accion }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="8">No hay compras registradas.</td></tr>
+                {% endif %}
+            </table>
+            <br>
+            <a href="{% url 'catalogo_libros' %}" style="padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Volver al catálogo</a>
+        </main>
+        <footer class="main-footer">
+            <span>&copy; 2025 <strong>Grupo 17</strong> — Tema 3 | Programación Web III</span>
+        </footer>
+    </div>
 </body>
 </html>

@@ -1,61 +1,79 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Catálogo de Libros</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
 </head>
 <body>
-    <h1>Catálogo de Libros</h1>
-    <a href="{% url 'inicio' %}" style="padding: 6px 16px; background: #f44336; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-right: 10px;">Volver a inicio</a>
-    {% if user.is_authenticated and user.is_staff %}
-    <a href="{% url 'agregar_libro' %}" style="padding: 6px 16px; background: #1976d2; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Agregar Libro</a>
-    {% endif %}
-    <a href="{% url 'ver_carrito' %}" style="padding: 6px 16px; background: #388e3c; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-left: 10px;">Ver Carrito</a>
-    
-                                                                
-    <form method="get" action="" style="margin-bottom: 20px;">
-        <h2><label for="autor">Filtrar por autor:</label></h2>
-        <select name="autor" id="autor" onchange="this.form.submit()">
-            <option value="">-- Todos los autores --</option>
-            {% for autor in autores %}
-                <option value="{{ autor }}" {% if request.GET.autor == autor %}selected{% endif %}>
-                    {{ autor }}
-                </option>
-            {% endfor %}
-        </select>
-    </form>
-
-                                                               
-    <table border="1" cellpadding="5" style="margin-top: 20px;">
-
-    </table>
-
-    <table border="1" cellpadding="5" style="margin-top: 20px;">
-        <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Categoría</th>
-            <th>Precio</th>
-            <th>Acción</th>
-        </tr>
-        {% for libro in libros %}
-        <tr>
-            <td>{{ libro.titulo }}</td>
-            <td>{{ libro.autor }}</td>
-            <td>{{ libro.categoria }}</td>
-            <td>{{ libro.precio }}</td>
-            <td>
-                <form method="post" action="{% url 'agregar_al_carrito' libro.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" style="padding: 4px 12px; background: #388e3c; color: white; border-radius: 5px; border: none; font-weight: bold;">Agregar al carrito</button>
-                </form>
-                <a href="{% url 'agregar_resena' libro.pk %}" style="padding: 4px 12px; background: #ff9800; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 4px; display: inline-block;">Agregar reseña</a>
-                <a href="{% url 'ver_resenas' libro.pk %}" style="padding: 4px 12px; background: #607d8b; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 4px; display: inline-block;">Ver reseñas</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="5">No hay libros en el catálogo.</td></tr>
-        {% endfor %}
-    </table>
+    <div class="layout-flex">
+        <header class="main-header">
+            <div class="header-content">
+                <img src="{% static 'img/libreriaicon.png' %}" alt="Logo" class="logo-header">
+                <div class="header-title">
+                    <span class="logo-text">Librerías <strong>LECTURA</strong></span>
+                    <span class="logo-sub">Desde 1997 ...</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="{% url 'inicio' %}">Inicio</a>
+                    <a href="#">Acerca de</a>
+                    <a href="{% url 'ver_carrito' %}">Carrito</a>
+                    <a href="#">Contacto</a>
+                </nav>
+                <div class="user-menu">
+                    <span>👤 Mi cuenta</span>
+                </div>
+            </div>
+        </header>
+        <main class="main-content">
+            <h1>Catálogo de Libros</h1>
+            <div class="catalogo-bar">
+                {% if user.is_authenticated and user.is_staff %}
+                <a href="{% url 'agregar_libro' %}" class="btn-primary">Agregar Libro</a>
+                {% endif %}
+                <a href="{% url 'ver_carrito' %}" class="btn-success">Ver Carrito</a>
+            </div>
+            <form method="get" action="" class="filtro-autor">
+                <label for="autor">Filtrar por autor:</label>
+                <select name="autor" id="autor" onchange="this.form.submit()">
+                    <option value="">-- Todos los autores --</option>
+                    {% for autor in autores %}
+                        <option value="{{ autor }}" {% if request.GET.autor == autor %}selected{% endif %}>{{ autor }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+            <table class="tabla-catalogo">
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Acción</th>
+                </tr>
+                {% for libro in libros %}
+                <tr>
+                    <td>{{ libro.titulo }}</td>
+                    <td>{{ libro.autor }}</td>
+                    <td>{{ libro.categoria }}</td>
+                    <td>{{ libro.precio }}</td>
+                    <td>
+                        <form method="post" action="{% url 'agregar_al_carrito' libro.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-success">Agregar al carrito</button>
+                        </form>
+                        <a href="{% url 'agregar_resena' libro.pk %}" class="btn-warning">Agregar reseña</a>
+                        <a href="{% url 'ver_resenas' libro.pk %}" class="btn-info">Ver reseñas</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5">No hay libros en el catálogo.</td></tr>
+                {% endfor %}
+            </table>
+        </main>
+        <footer class="main-footer">
+            <span>&copy; 2025 <strong>Grupo 17</strong> — Tema 3 | Programación Web III</span>
+        </footer>
+    </div>
 </body>
 </html>

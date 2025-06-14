@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pago Exitoso</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
     <style>
         body { background: #f4f8fb; font-family: Arial, sans-serif; }
         .pago-container {
@@ -35,12 +37,37 @@
     </style>
 </head>
 <body>
-    <div class="pago-container">
-        <div class="icono-exito">&#10004;</div>
-        <h1>¡Pago exitoso!</h1>
-        <p>Tu compra ha sido procesada correctamente.<br>Gracias por confiar en nuestra tienda.</p>
-        <a href="/catalogo/" class="btn-volver">Volver al catálogo</a>
-        <a href="/" class="btn-volver">Volver al menu</a>
+    <div class="layout-flex">
+        <header class="main-header">
+            <div class="header-content">
+                <img src="{% static 'img/libreriaicon.png' %}" alt="Logo" class="logo-header">
+                <div class="header-title">
+                    <span class="logo-text">Librerías <strong>LECTURA</strong></span>
+                    <span class="logo-sub">Desde 1997 ...</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="{% url 'inicio' %}">Inicio</a>
+                    <a href="#">Acerca de</a>
+                    <a href="{% url 'ver_carrito' %}">Carrito</a>
+                    <a href="#">Contacto</a>
+                </nav>
+                <div class="user-menu">
+                    <span>👤 Mi cuenta</span>
+                </div>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="pago-container">
+                <div class="icono-exito">&#10004;</div>
+                <h1>¡Pago exitoso!</h1>
+                <p>Tu compra ha sido procesada correctamente.<br>Gracias por confiar en nuestra tienda.</p>
+                <a href="/catalogo/" class="btn-volver">Volver al catálogo</a>
+                <a href="/" class="btn-volver">Volver al menu</a>
+            </div>
+        </main>
+        <footer class="main-footer">
+            <span>&copy; 2025 <strong>Grupo 17</strong> — Tema 3 | Programación Web III</span>
+        </footer>
     </div>
 </body>
 </html>
