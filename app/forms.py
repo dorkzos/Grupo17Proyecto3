@@ -11,6 +11,10 @@ class LibroForm(forms.ModelForm):
         ('Historia', 'Historia'),
         ('Infantil', 'Infantil'),
         ('Educativo', 'Educativo'),
+        ('Filosofia', 'Filosofia'),
+        ('Novela', 'Novela'),
+        ('Poesía', 'Poesía'),
+        ('Enciclopedia', 'Enciclopedia'),
         ('Otro', 'Otro'),
     ]
     categoria = forms.ChoiceField(choices=CATEGORIAS, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
