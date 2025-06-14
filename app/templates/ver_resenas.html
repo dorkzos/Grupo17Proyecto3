@@ -12,31 +12,46 @@
             <div class="header-content">
                 <img src="{% static 'img/libreriaicon.png' %}" alt="Logo" class="logo-header">
                 <div class="header-title">
-                    <span class="logo-text">Librerías <strong>LECTURA</strong></span>
-                    <span class="logo-sub">Desde 1997 ...</span>
+                    <span class="logo-text">Mi primer <strong>librito</strong></span>
                 </div>
                 <nav class="main-nav">
                     <a href="{% url 'inicio' %}">Inicio</a>
-                    <a href="#">Acerca de</a>
-                    <a href="{% url 'ver_carrito' %}">Carrito</a>
-                    <a href="#">Contacto</a>
+                    <a href="{% url 'catalogo_libros' %}">Catálogo</a>
+                    <a href="{% url 'historial_compras' %}">Historial de compras</a>
+                    <a href="{% url 'ver_carrito' %}">Carrito de compras</a>
                 </nav>
                 <div class="user-menu">
-                    <span>👤 Mi cuenta</span>
+                    {% if user.is_authenticated %}
+                        <span style="color: #388e3c; font-weight: bold;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#388e3c" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3" fill="#fff"/><path d="M12 13c-3 0-5 1.5-5 3v1h10v-1c0-1.5-2-3-5-3z" fill="#fff"/></svg>
+                            {{ user.username }}
+                            <a href="{% url 'usuario_logout' %}" class="logout-btn" title="Cerrar sesión" style="margin-left:8px; padding:2px 8px; background:#e74c3c; color:#fff; border-radius:4px; font-size:0.95em; text-decoration:none; font-weight:500; vertical-align:middle;">Salir</a>
+                        </span>
+                    {% else %}
+                        <span>Invitado</span>
+                    {% endif %}
                 </div>
             </div>
         </header>
         <main class="main-content">
             <h1>Reseñas de {{ libro.titulo }}</h1>
             {% if resenas %}
-                <ul>
-                {% for resena in resenas %}
-                    <li>
-                        <strong>Calificación:</strong> {{ resena.calificacion }} / 5<br>
-                        <strong>Comentario:</strong> {{ resena.comentario }}
-                    </li>
-                {% endfor %}
-                </ul>
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>Calificación</th>
+                            <th>Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for resena in resenas %}
+                        <tr>
+                            <td>{{ resena.calificacion }} / 5</td>
+                            <td>{{ resena.comentario }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             {% else %}
                 <p>No hay reseñas para este libro.</p>
             {% endif %}

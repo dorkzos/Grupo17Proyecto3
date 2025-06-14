@@ -6,35 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pago Exitoso</title>
     <link rel="stylesheet" href="{% static 'estilos.css' %}">
-    <style>
-        body { background: #f4f8fb; font-family: Arial, sans-serif; }
-        .pago-container {
-            max-width: 400px;
-            margin: 60px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px #b0c4de55;
-            padding: 32px 24px;
-            text-align: center;
-        }
-        .icono-exito {
-            font-size: 60px;
-            color: #4caf50;
-            margin-bottom: 16px;
-        }
-        .btn-volver {
-            display: inline-block;
-            margin-top: 24px;
-            padding: 10px 28px;
-            background: #1976d2;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        
-    </style>
 </head>
 <body>
     <div class="layout-flex">
@@ -42,17 +13,24 @@
             <div class="header-content">
                 <img src="{% static 'img/libreriaicon.png' %}" alt="Logo" class="logo-header">
                 <div class="header-title">
-                    <span class="logo-text">Librerías <strong>LECTURA</strong></span>
-                    <span class="logo-sub">Desde 1997 ...</span>
+                    <span class="logo-text">Mi primer <strong>librito</strong></span>
                 </div>
                 <nav class="main-nav">
                     <a href="{% url 'inicio' %}">Inicio</a>
-                    <a href="#">Acerca de</a>
-                    <a href="{% url 'ver_carrito' %}">Carrito</a>
-                    <a href="#">Contacto</a>
+                    <a href="{% url 'catalogo_libros' %}">Catálogo</a>
+                    <a href="{% url 'historial_compras' %}">Historial de compras</a>
+                    <a href="{% url 'ver_carrito' %}">Carrito de compras</a>
                 </nav>
                 <div class="user-menu">
-                    <span>👤 Mi cuenta</span>
+                    {% if user.is_authenticated %}
+                        <span style="color: #388e3c; font-weight: bold;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#388e3c" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3" fill="#fff"/><path d="M12 13c-3 0-5 1.5-5 3v1h10v-1c0-1.5-2-3-5-3z" fill="#fff"/></svg>
+                            {{ user.username }}
+                            <a href="{% url 'usuario_logout' %}" class="logout-btn" title="Cerrar sesión" style="margin-left:8px; padding:2px 8px; background:#e74c3c; color:#fff; border-radius:4px; font-size:0.95em; text-decoration:none; font-weight:500; vertical-align:middle;">Salir</a>
+                        </span>
+                    {% else %}
+                        <span>Invitado</span>
+                    {% endif %}
                 </div>
             </div>
         </header>

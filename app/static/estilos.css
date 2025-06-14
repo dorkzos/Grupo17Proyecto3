@@ -3,7 +3,7 @@ body {
     padding: 0;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    background: #fff;
+    background: #f4f8fb;
 }
 .main-flex {
     display: flex;
@@ -178,8 +178,9 @@ body {
 }
 .main-content {
     flex: 1;
-    max-width: 1100px;
+    max-width: 1020px; /* 15% más angosto que 1200px */
     margin: 0 auto;
+    width: 95%;
     padding: 36px 24px 24px 24px;
     background: #fff;
     border-radius: 0 0 18px 18px;
@@ -238,49 +239,30 @@ body {
 .btn-primary:hover {
     background: #c89f5d;
 }
-.btn-success {
-    background: #388e3c;
-    color: #fff;
-    border-radius: 5px;
-    padding: 6px 16px;
-    text-decoration: none;
-    font-weight: bold;
+.btn-success, .btn-warning, .btn-info {
+    padding: 8px 12px;
     border: none;
-    margin-left: 10px;
-    transition: background 0.2s;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
-.btn-success:hover {
-    background: #256029;
+.btn-success {
+    background-color: #4CAF50;
+    color: white;
 }
 .btn-warning {
-    background: #f7ca18;
-    color: #222;
-    border-radius: 5px;
-    padding: 6px 16px;
-    text-decoration: none;
-    font-weight: bold;
-    border: none;
-    margin-top: 4px;
-    display: inline-block;
-    transition: background 0.2s;
-}
-.btn-warning:hover {
-    background: #e0b973;
+    background-color: #FFC107;
+    color: black;
 }
 .btn-info {
-    background: #1976d2;
-    color: #fff;
-    border-radius: 5px;
-    padding: 6px 16px;
-    text-decoration: none;
-    font-weight: bold;
-    border: none;
-    margin-top: 4px;
-    display: inline-block;
-    transition: background 0.2s;
+    background-color: #2196F3;
+    color: white;
 }
-.btn-info:hover {
-    background: #125ea2;
+.btn-success:hover, .btn-warning:hover, .btn-info:hover {
+    opacity: 0.8;
 }
 .main-footer {
     background: #222;
@@ -292,9 +274,99 @@ body {
     border-radius: 0 0 12px 12px;
     margin-top: 24px;
 }
+/* Estilos de tabla moderna movidos desde los templates */
+.modern-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 400px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #1976d220;
+    overflow: hidden;
+    font-size: 1.08em;
+}
+.modern-table th, .modern-table td {
+    padding: 14px 22px;
+    text-align: left;
+}
+.modern-table thead {
+    background: #1976d2;
+    color: #fff;
+}
+.modern-table tbody tr:nth-child(even) {
+    background: #f4f8fb;
+}
+.modern-table tbody tr:hover {
+    background: #e3f2fd;
+}
+.modern-table td.acciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+}
+.modern-table td.acciones a, .modern-table td.acciones button {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 10px 0;
+    font-size: 1em;
+    border-radius: 6px;
+    border: none;
+    background: #1976d2;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+    cursor: pointer;
+    box-shadow: 0 1px 4px #1976d220;
+    text-align: center;
+    display: block;
+}
+.modern-table td.acciones a:hover, .modern-table td.acciones button:hover {
+    background: #125ea2;
+}
+.button-container {
+    display: flex;
+    gap: 4px;
+}
+.pago-container {
+    max-width: 400px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #b0c4de55;
+    padding: 32px 24px;
+    text-align: center;
+}
+.icono-exito {
+    font-size: 60px;
+    color: #4caf50;
+    margin-bottom: 16px;
+}
+.btn-volver {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 10px 28px;
+    background: #1976d2;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.btn-volver:hover {
+    opacity: 0.85;
+}
 @media (max-width: 900px) {
     .header-content, .main-content { padding: 18px 8px; }
     .main-content { max-width: 98vw; }
+}
+@media (max-width: 700px) {
+    .modern-table td.acciones {
+        grid-template-columns: 1fr;
+    }
 }
 @media (max-width: 600px) {
     .header-content { flex-direction: column; align-items: flex-start; gap: 10px; }

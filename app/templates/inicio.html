@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="main-flex">
-        <!-- Barra lateral eliminada -->
+       
         <div class="right-panel" style="width:100%;">
             <div class="login-container">
                 <img src="{% static 'img/libreriaicon.png' %}" alt="logito">
@@ -31,7 +31,7 @@
                     </span>
                 </div>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'catalogo_libros' %}" style="margin-top: 18px; display: inline-block; background: #1976d2; color: white; border-radius: 5px; padding: 10px 24px; text-decoration: none; font-weight: bold; font-size: 1.1em;">Ver Catálogo</a>
+                    <a href="{% url 'catalogo_libros' %}" style="margin-top: 18px; display: inline-block; background: #1976d2; color: white; border-radius: 5px; padding: 10px 24px; text-decoration: none; font-weight: bold; font-size: 1.1em;">Ver Catalogo</a>
                 {% endif %}
             </div>
         </div>
