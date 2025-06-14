@@ -150,4 +150,4 @@ def eliminar_libro(request, libro_id):
     if request.method == 'POST':
         libro.delete()
         return redirect(reverse('catalogo_libros'))
-    return render(request, 'eliminar_libro_confirm.html', {'libro': libro})
+    return render(request, 'eliminar_libro.html', {'libro': libro})

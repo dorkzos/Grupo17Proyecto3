@@ -3,48 +3,23 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registrarse</title>
+    <title>Registrarse - Mi primer librito</title>
     <link rel="stylesheet" href="{% static 'estilos.css' %}">
 </head>
 <body>
-    <div class="layout-flex">
-        <header class="main-header">
-            <div class="header-content">
-                <img src="{% static 'img/libreriaicon.png' %}" alt="Logo" class="logo-header">
-                <div class="header-title">
-                    <span class="logo-text">Mi primer <strong>librito</strong></span>
-                </div>
-                <nav class="main-nav">
-                    <a href="{% url 'inicio' %}">Inicio</a>
-                    <a href="{% url 'catalogo_libros' %}">Catálogo</a>
-                    <a href="{% url 'historial_compras' %}">Historial de compras</a>
-                    <a href="{% url 'ver_carrito' %}">Carrito de compras</a>
-                </nav>
-                <div class="user-menu">
-                    {% if user.is_authenticated %}
-                        <span style="color: #388e3c; font-weight: bold;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#388e3c" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3" fill="#fff"/><path d="M12 13c-3 0-5 1.5-5 3v1h10v-1c0-1.5-2-3-5-3z" fill="#fff"/></svg>
-                            {{ user.username }}
-                            <a href="{% url 'usuario_logout' %}" class="logout-btn" title="Cerrar sesión" style="margin-left:8px; padding:2px 8px; background:#e74c3c; color:#fff; border-radius:4px; font-size:0.95em; text-decoration:none; font-weight:500; vertical-align:middle;">Salir</a>
-                        </span>
-                    {% else %}
-                        <span>Invitado</span>
-                    {% endif %}
-                </div>
-            </div>
-        </header>
-        <main class="main-content">
-            <h1>Registrar nuevo usuario</h1>
-            <form method="post">
+    <div class="register-flex">
+        <div class="register-container">
+            <img src="{% static 'img/libreriaicon.png' %}" alt="Logo" class="register-logo">
+            <h2 class="register-title">Crear nueva cuenta</h2>
+            <form method="post" class="register-form">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Registrarse</button>
+                <button type="submit" class="btn-primary">Registrarse</button>
             </form>
-            <p>¿Tienes cuenta? <a href="{% url 'inicio' %}">Inicia sesión aquí</a></p>
-        </main>
-        <footer class="main-footer">
-            <span>&copy; 2025 <strong>Grupo 17</strong> — Tema 3 | Programación Web III</span>
-        </footer>
+            <div class="register-footer">
+                <a href="{% url 'inicio' %}" class="btn-link">Volver al inicio</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

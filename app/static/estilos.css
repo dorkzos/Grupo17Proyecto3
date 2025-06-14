@@ -375,6 +375,80 @@ body {
 .btn-volver:hover {
     opacity: 0.85;
 }
+/* Registro de usuario */
+.register-flex {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f7fa;
+}
+
+.register-container {
+    background: #fff;
+    padding: 36px 32px 28px 32px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px #b0c4de55;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.register-logo {
+    width: 70px;
+    margin-bottom: 18px;
+}
+
+.register-title {
+    margin-bottom: 18px;
+    color: #1976d2;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.register-form input, .register-form select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    border: 1px solid #b0bec5;
+    border-radius: 5px;
+    font-size: 1em;
+    background: #f8fafc;
+}
+
+.register-form button.btn-primary {
+    width: 100%;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    padding: 12px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.register-form button.btn-primary:hover {
+    background: #125ea2;
+}
+
+.register-footer {
+    margin-top: 18px;
+}
+
+.btn-link {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1em;
+    transition: color 0.2s;
+}
+
+.btn-link:hover {
+    color: #125ea2;
+    text-decoration: underline;
+}
 @media (max-width: 900px) {
     .header-content, .main-content { padding: 18px 8px; }
     .main-content { max-width: 98vw; }

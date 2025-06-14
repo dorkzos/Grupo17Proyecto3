@@ -1,8 +1,0 @@
-<!-- templates/app/mis_pedidos.html -->
-<h2>Mis Pedidos</h2>
-{% if user.is_authenticated %}
-    <p>Aquí irán tus pedidos...</p>
-    <a href="{% url 'mi_cuenta' %}">Volver</a>
-{% else %}
-    <p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para ver pedidos.</p>
-{% endif %}
