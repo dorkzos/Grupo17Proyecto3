@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import LibroForm, ResenaForm
-from .models import Libro, Historial, CarritoUser, CarritoActual, Resena
+from .models import Libro, Historial, CarritoActual, Resena
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseForbidden
 from django.urls import reverse
