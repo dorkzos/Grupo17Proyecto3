@@ -1,0 +1,50 @@
+Commit,Autor,Fecha,Mensaje
+f13b947,dorkzos,2025-06-14,cambios
+f4943e3,dorkzos,2025-06-14,cambios menores
+eb9a231,dorkzos,2025-06-14,Resuelvo conflictos de merge y sincronizo datos y migraciones
+2e06353,dorkzos,2025-06-14,detalles extras
+1ea9e72,CesarLauraArcani,2025-06-14,Agrega LIBROS
+1d75e11,dorkzos,2025-06-14,arreglando problemas pequeños
+6a02155,dorkzos,2025-06-14,mas cambios
+37c1cd9,dorkzos,2025-06-14,ultimos cambios diseño
+f309469,dorkzos,2025-06-14,Mejoras en el diseño
+bfbac45,dorkzos,2025-06-13,arreglos
+c997c29,dorkzos,2025-06-13,implementando diseño pagina login
+d5ad462,dorkzos,2025-06-13,copiaSeguridad
+12999c7,dorkzos,2025-06-09,limpiando archivos innecesarios
+37870aa,dorkzos,2025-06-09,arreglado sistema reseñas
+fbfda1f,dorkzos,2025-06-09,mejoras varias
+b5fc414,dorkzos,2025-06-09,Agregado botones faltantes
+2a7db04,CesarLauraArcani,2025-06-09,implementacion de buscar por autor
+3058249,dorkzos,2025-06-09,Implementado Historial de compras y Carrito simulado
+34933eb,CesarLauraArcani,2025-06-09,carrito de compras simulado
+1a93c30,dorkzos,2025-06-09,Implementado funcionalidad el catalogo y carrito de compra
+c12da4a,dorkzos,2025-06-08,cambios
+0966861,SofiOsiel,2025-06-08,ise una listalibros.html con un boton
+f69a199,SofiOsiel,2025-06-08,cree una lista de libros.html y boton
+14e79ac,Cristhian Alexander Soliz Ticona,2025-06-08,Implementé sistema de autenticación con login, registro y vistas protegidas @login_required. Creé templates para 'Mi cuenta' y 'Mis pedidos'. Configuré URLs y settings.py para redirecciones.
+46471eb,Cristhian Alexander Soliz Ticona,2025-06-08,Resuelvo conflicto usando versión remota de db.sqlite3
+3094b0e,Cristhian Alexander Soliz Ticona,2025-06-08,Guardo cambios locales en db.sqlite3
+ba5caa3,dorkzos,2025-06-08,Merge branch 'main' of https://github.com/dorkzos/Grupo17Proyecto3
+f689cd8,dorkzos,2025-06-08,cambios en pagina inicio
+a5ca912,Dorian Menendez,2025-06-08,Update README.md
+f66b7c6,Dorian Menendez,2025-06-08,Update README.md
+66a5f3c,dorkzos,2025-06-08,Se simplificó login
+bf8834b,dorkzos,2025-06-08,Implementando primera version login/registrarse
+dd7acf5,dorkzos,2025-06-08,Creando superuser
+11ee193,dorkzos,2025-06-08,Agregando models al admin DJANGO
+cac7884,dorkzos,2025-06-08,Corregido errores con id en class Pedido [MODELS]
+01e87ba,AleCL,2025-06-08,Alejandra Conde hice la base de datos y la migracion
+1f02a4b,dorkzos,2025-06-08,Corregido proyecto
+87643d8,dorkzos,2025-06-08,Merge branch 'main' of https://github.com/dorkzos/Grupo17Proyecto3
+72267e6,dorkzos,2025-06-08,Arreglar ubicacion venv
+e3b2ed7,CesarLauraArcani,2025-06-08,funciono?
+b54bbe2,AleCL,2025-06-08,Merge branch 'main' of https://github.com/dorkzos/Grupo17Proyecto3
+1233366,AleCL,2025-06-08,Se hizo un cambio
+f9f92ba,Cristhian Alexander Soliz Ticona,2025-06-07,cambio 123434333
+7bfdb32,Cristhian Alexander Soliz Ticona,2025-06-07,cambio alexander o
+e91270e,Cristhian Alexander Soliz Ticona,2025-06-07,probando el sistema
+8e0fa3a,Dorian Menendez,2025-06-08,Update README.md
+84f1ea8,dorkzos,2025-06-08,Creacion de template
+077ca97,dorkzos,2025-06-07,Creado entorno virtual (venv) - instalado django - creado proyecto libreriaonline - creado aplicación app
+1c980d3,dorkzos,2025-06-07,Primer Commit - Creado Readme.md
