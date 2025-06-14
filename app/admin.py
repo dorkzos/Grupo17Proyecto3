@@ -13,4 +13,3 @@ admin.site.register(Resena)
 
 #por sofia---------------
 
-#fin--------------------
